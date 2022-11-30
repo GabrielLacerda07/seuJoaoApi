@@ -7,16 +7,17 @@ $informacao = array();
 foreach($prestadores as $prestador){
 	$editLink = $this->Html->link('Editar', '/providers/edit/' . $prestador['Provider']['id']);
 	$viewLink = $this->Html->link($prestador['Provider']['nome'], '/providers/view/' .$prestador['Provider']['id']);
-
+	$deleteLink = $this->Html->link('Excluir', '/providers/delete/' . $prestador['Provider']['id']);
 	$informacao[] = array(
 		$viewLink,
 		$prestador['Provider']['email'],
-		$editLink
+		$prestador['Service']['nome'],
+		$editLink . ' ' . $deleteLink
 	);
 }
 echo $this->Html->tag('h1', 'Prestadores');
 
-$titulos = array('Nome', 'Telefone', 'Email');
+$titulos = array('Nome',  'Email', 'Serviço Prestado', '');
 $header = $this->Html->tableHeaders($titulos);
 $body = $this->Html->tableCells($informacao);
 $novoButton = $this->Html->link('Novo', '/providers/add');
