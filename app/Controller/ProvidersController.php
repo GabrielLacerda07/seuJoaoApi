@@ -30,13 +30,13 @@ class ProvidersController extends AppController {
 
 	public function edit($id = null){
 		if(!empty($this->request->data)){
-			$this->Provider->create();
 			if($this->Provider->save($this->request->data)){
 				$this->Flash->set('Alteração feita com sucesso!');
 				$this->redirect('/providers');
 			}
 		}else{
 			$fields = array(
+				'Provider.id',
 				'Provider.nome',
 				'Provider.telefone',
 				'Provider.email',
@@ -68,6 +68,15 @@ class ProvidersController extends AppController {
 	public function  delete($id){
 		$this->Provider->delete($id);
 		$this->redirect('/providers');
+	}
+	public function addService(){
+		if(!empty($this->request->data)){
+			$this->Provider->create();
+			if($this->Provider->save($this->request->data)){
+				$this->Flash->set('Serviço salvo com sucesso!');
+				$this->redirect('/providers');
+			}
+		}
 	}
 }
 

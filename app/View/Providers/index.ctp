@@ -20,9 +20,12 @@ echo $this->Html->tag('h1', 'Prestadores');
 $titulos = array('Nome',  'Email', 'Serviço Prestado', '');
 $header = $this->Html->tableHeaders($titulos);
 $body = $this->Html->tableCells($informacao);
-$novoButton = $this->Html->link('Novo', '/providers/add');
+$novoButton = $this->Html->link('Novo Prestador', '/providers/add');
+$novoServicoButton = $this->Html->link('Adicionar novo serviço', '/services/add');
 
 echo $novoButton;
+echo '<br/>';
+echo $novoServicoButton;
 echo $this->Html->tag('table', $header . $body);
 
 ?>
