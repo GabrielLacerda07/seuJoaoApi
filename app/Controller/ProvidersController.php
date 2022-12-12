@@ -69,14 +69,23 @@ class ProvidersController extends AppController {
 		$this->Provider->delete($id);
 		$this->redirect('/providers');
 	}
-	public function addService(){
-		if(!empty($this->request->data)){
-			$this->Provider->create();
-			if($this->Provider->save($this->request->data)){
-				$this->Flash->set('Serviço salvo com sucesso!');
-				$this->redirect('/providers');
-			}
-		}
+	public function exportCsv(){
+
+		$fields = array(
+		'Provider.nome',
+	  'Provider.email',
+		'Provider.id',
+		'Service.nome',
+		'Service.id'
+		);
+		$prestadores = $this->Provider->find('all', compact('fields')) ;
+		$this->set('prestadores', $prestadores);
+		$fields = array(
+			'Service.nome',
+			'Service.id'
+		);
+		$servicos = $this->Provider->find('all', compact('fields')) ;
+		$this->set('servicos', $servicos);
 	}
 }
 

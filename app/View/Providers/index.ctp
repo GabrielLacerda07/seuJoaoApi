@@ -22,31 +22,13 @@ $header = $this->Html->tableHeaders($titulos);
 $body = $this->Html->tableCells($informacao);
 $novoButton = $this->Html->link('Novo Prestador', '/providers/add');
 $novoServicoButton = $this->Html->link('Adicionar novo serviço', '/services/add');
+$exportarCsv = $this->Html->link('Exportar todos prestadores', '/providers/exportCsv');
 
 echo $novoButton;
 echo '<br/>';
 echo $novoServicoButton;
+echo '<br/>';
+echo $exportarCsv;
 echo $this->Html->tag('table', $header . $body);
 
 ?>
-<!--
-<h1>Prestadores</h1>
-<table>
-	<thead>
-		<tr>
-			<th>Nome</th>
-			<th>Ano</th>
-			<th>Duração</th>
-			<th>Idioma</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Avengers</td>
-			<td>2019</td>
-			<td>5:00</td>
-			<td>Inglês</td>
-		</tr>
-	</tbody>
-</table>
--->
