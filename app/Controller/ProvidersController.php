@@ -3,6 +3,9 @@ App::uses('AppController', 'Controller');
 
 
 class ProvidersController extends AppController {
+
+    public $components = array('RequestHandler');
+
 	public function index(){
 	$fields = array(
 		'Provider.nome',
@@ -12,7 +15,11 @@ class ProvidersController extends AppController {
 	);
 
 	$prestadores = $this->Provider->find('all', compact('fields')) ;
-	$this->set('prestadores', $prestadores);
+	// $this->set('prestadores', $prestadores);
+	$this->set(array(
+		'prestadores' => $prestadores,
+		'_serialize' => array('prestadores')
+	));
 	}
 
 	public function add(){
@@ -25,7 +32,11 @@ class ProvidersController extends AppController {
 		}
 		$fields = array('Service.id', 'Service.nome');
 		$servicos= $this->Provider->Service->find('list', compact('fields'));
-		$this->set('servicos', $servicos);
+		// $this->set('servicos', $servicos);
+		$this->set(array(
+			'servicos' => $servicos,
+			'_serialize' => array('servicos')
+		));
 	}
 
 	public function edit($id = null){
@@ -49,7 +60,11 @@ class ProvidersController extends AppController {
 		}
 		$fields = array('Service.id', 'Service.nome');
 		$servicos= $this->Provider->Service->find('list', compact('fields'));
-		$this->set('servicos', $servicos);
+		// $this->set('servicos', $servicos);
+		$this->set(array(
+			'servicos' => $servicos,
+			'_serialize' => array('servicos')
+		));
 	}
 
 	public function view($id = null){
@@ -85,7 +100,10 @@ class ProvidersController extends AppController {
 			'Service.id'
 		);
 		$servicos = $this->Provider->find('all', compact('fields')) ;
-		$this->set('servicos', $servicos);
+		$this->set(array(
+			'servicos' => $servicos,
+			'_serialize' => array('servicos')
+		));
 	}
 }
 

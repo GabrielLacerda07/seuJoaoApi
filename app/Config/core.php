@@ -212,7 +212,13 @@
  * - `Session.cacheLimiter` - Configure the cache control headers used for the session cookie.
  *   See http://php.net/session_cache_limiter for accepted values.
  * - `Session.ini` - An associative array of additional ini values to set.
- *
+ */
+ header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Methods: GET, POST, DELETE');
+
+header("Access-Control-Allow-Headers: X-Requested-With");
+ /*
  * The built in defaults are:
  *
  * - 'php' - Uses settings defined in your php.ini.
