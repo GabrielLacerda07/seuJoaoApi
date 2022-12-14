@@ -4,7 +4,16 @@ App::uses('AppController', 'Controller');
 
 class ProvidersController extends AppController {
 
-    public $components = array('RequestHandler');
+  public $components = array('RequestHandler');
+
+	public $paginate = array(
+		'fields' => array(
+			'Provider.nome',
+			'Provider.email',
+			'Provider.id',
+			'Service.nome'),
+			'limit' => 3
+	);
 
 	public function index(){
 	$fields = array(
@@ -14,8 +23,9 @@ class ProvidersController extends AppController {
 		'Service.nome'
 	);
 
-	$prestadores = $this->Provider->find('all', compact('fields')) ;
+	// $prestadores = $this->Provider->find('all', compact('fields')) ;
 	// $this->set('prestadores', $prestadores);
+	$prestadores = $this->paginate();
 	$this->set(array(
 		'prestadores' => $prestadores,
 		'_serialize' => array('prestadores')

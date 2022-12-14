@@ -22,7 +22,6 @@ for($i=0; $i <count($servico_prest); $i++){
 	$todosPrest[] .= $prest[$i]['Provider']['email'];
 	$todosPrest[] .= $prest[$i]['Provider']['id'];
 	$todosPrest[] .= $servico_prest[$i] ;
-
 }
 $todosPrest = array_chunk($todosPrest, 4, false);
 echo '<pre>';

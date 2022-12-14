@@ -23,12 +23,21 @@ $body = $this->Html->tableCells($informacao);
 $novoButton = $this->Html->link('Novo Prestador', '/providers/add');
 $novoServicoButton = $this->Html->link('Adicionar novo serviço', '/services/add');
 $exportarCsv = $this->Html->link('Exportar todos prestadores', '/providers/exportCsv');
+	$paginate = '';
+	$paginate .= $this->Paginator->first();
+	$paginate .= $this->Paginator->prev();
+	$paginate .= $this->Paginator->next();
+	$paginate .= $this->Paginator->last();
 
+	$paginate .= $this->Html->para('', 'Prestadores');
 echo $novoButton;
 echo '<br/>';
 echo $novoServicoButton;
 echo '<br/>';
 echo $exportarCsv;
+
 echo $this->Html->tag('table', $header . $body);
 
+echo '<br/>';
+echo $paginate;
 ?>
