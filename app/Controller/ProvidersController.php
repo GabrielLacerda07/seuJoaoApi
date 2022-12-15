@@ -89,6 +89,10 @@ class ProvidersController extends AppController {
 			);
 			$conditions = array('Provider.id' => $id);
 			$this->request->data = $this->Provider->find('first', compact('fields', 'conditions'));
+			$this->set(array(
+				'dadosPrestadores' => $this->request->data,
+				'_serialize' => array('dadosPrestadores')
+			));
 	}
 	public function  delete($id){
 		$this->Provider->delete($id);
