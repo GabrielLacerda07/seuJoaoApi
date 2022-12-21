@@ -12,9 +12,13 @@ class ProvidersController extends AppController {
 			'Provider.email',
 			'Provider.id',
 			'Service.nome'),
-			'limit' => 3
+			'limit' => 50
 	);
-
+	 public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Security->validatePost = false;
+        $this->Security->csrfCheck = false;
+    }
 	public function index(){
 	$fields = array(
 		'Provider.nome',

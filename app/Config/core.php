@@ -213,7 +213,8 @@
  *   See http://php.net/session_cache_limiter for accepted values.
  * - `Session.ini` - An associative array of additional ini values to set.
  */
- header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Origin: *');
 
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
 
