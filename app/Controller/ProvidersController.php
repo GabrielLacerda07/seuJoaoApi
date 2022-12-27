@@ -6,19 +6,20 @@ class ProvidersController extends AppController {
 
   public $components = array('RequestHandler');
 
-	public $paginate = array(
-		'fields' => array(
-			'Provider.nome',
-			'Provider.email',
-			'Provider.id',
-			'Service.nome'),
-			'limit' => 50
-	);
-	 public function beforeFilter(){
-        parent::beforeFilter();
-        $this->Security->validatePost = false;
-        $this->Security->csrfCheck = false;
-    }
+	// public $paginate = array(
+	// 	'fields' => array(
+	// 		'Provider.nome',
+	// 		'Provider.email',
+	// 		'Provider.id',
+	// 		'Provider.telefone',
+	// 		'Service.nome'),
+	// 		'limit' => 3
+	// );
+	//  public function beforeFilter(){
+  //       parent::beforeFilter();
+  //       $this->Security->validatePost = false;
+  //       $this->Security->csrfCheck = false;
+  //   }
 	public function index(){
 	$fields = array(
 		'Provider.nome',
@@ -105,11 +106,13 @@ class ProvidersController extends AppController {
 	public function exportCsv(){
 
 		$fields = array(
+		'Provider.id',
 		'Provider.nome',
 	  'Provider.email',
-		'Provider.id',
 		'Service.nome',
-		'Service.id'
+		'Service.id',
+		'Provider.service_value',
+
 		);
 		$prestadores = $this->Provider->find('all', compact('fields')) ;
 		$this->set('prestadores', $prestadores);
@@ -122,8 +125,39 @@ class ProvidersController extends AppController {
 			'servicos' => $servicos,
 			'_serialize' => array('servicos')
 		));
-	}
+
+$cabecalho = array(
+	'Id',
+	'Nome',
+	'Email',
+	'Servico',
+	'Valor'
+);
+
+foreach($prestadores as $prestador){
+	$prest[] = $prestador;
+	$servico_prest[] = $prestador['Service']['nome'];
 }
 
 
+for($i=0; $i <count($servico_prest); $i++){
+	$todosPrest[] = mb_convert_encoding($prest[$i]['Provider']['id'], "UTF-16LE", "UTF-8");
+	$todosPrest[] .= mb_convert_encoding($prest[$i]['Provider']['nome'], "UTF-16LE", "UTF-8");
+	$todosPrest[] .= mb_convert_encoding($prest[$i]['Provider']['email'], "UTF-16LE", "UTF-8");
+	$todosPrest[] .= mb_convert_encoding($servico_prest[$i], "UTF-16LE", "UTF-8");
+	$todosPrest[] .= mb_convert_encoding($prest[$i]['Provider']['service_value'], "UTF-16LE", "UTF-8");
+}
+
+$todosPrest = array_chunk($todosPrest, 5, false);
+
+$arquivo = fopen('prestadores.csv', 'w');
+fputcsv($arquivo, $cabecalho, ';');
+
+foreach($todosPrest as $prestador){
+  fputcsv($arquivo, $prestador , ';');
+}
+
+fclose($arquivo);
+	}
+}
 ?>
