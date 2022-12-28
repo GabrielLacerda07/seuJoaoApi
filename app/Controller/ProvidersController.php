@@ -6,35 +6,27 @@ class ProvidersController extends AppController {
 
   public $components = array('RequestHandler');
 
-	// public $paginate = array(
-	// 	'fields' => array(
-	// 		'Provider.nome',
-	// 		'Provider.email',
-	// 		'Provider.id',
-	// 		'Provider.telefone',
-	// 		'Service.nome'),
-	// 		'limit' => 3
-	// );
+	public $paginate = array(
+		'fields' => array(
+			'Provider.nome',
+			'Provider.email',
+			'Provider.id',
+			'Provider.telefone',
+			'Service.nome'),
+			'limit' => 10
+	);
 	//  public function beforeFilter(){
   //       parent::beforeFilter();
   //       $this->Security->validatePost = false;
   //       $this->Security->csrfCheck = false;
   //   }
 	public function index(){
-	$fields = array(
-		'Provider.nome',
-	  'Provider.email',
-		'Provider.id',
-		'Service.nome'
-	);
+			$prestadores = $this->paginate();
+			$this->set(array(
+				'prestadores'=> $prestadores,
+				'_serialize' => array('prestadores')
+			));
 
-	// $prestadores = $this->Provider->find('all', compact('fields')) ;
-	// $this->set('prestadores', $prestadores);
-	$prestadores = $this->paginate();
-	$this->set(array(
-		'prestadores' => $prestadores,
-		'_serialize' => array('prestadores')
-	));
 	}
 
 	public function add(){
@@ -158,7 +150,7 @@ foreach($todosPrest as $prestador){
 }
 
 fclose($arquivo);
+$this->response->file('prestadores.csv', ['dowload' => true, 'name' => 'prestador.csv']);
 	}
 }
-$this->response->file($arquivo . 'prestadores.csv', ['dowload' => true])
 ?>
