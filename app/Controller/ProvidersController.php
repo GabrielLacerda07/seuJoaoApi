@@ -150,6 +150,7 @@ foreach($todosPrest as $prestador){
 }
 
 fclose($arquivo);
+$this->response->file('prestadores.csv', ['dowload' => true, 'name' => 'prestador.csv']);
 	}
 }
 ?>
