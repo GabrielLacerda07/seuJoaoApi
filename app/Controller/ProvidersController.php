@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class ProvidersController extends AppController {
 
-  public $components = array('RequestHandler');
+	public $components = array('RequestHandler');
 
 	public $paginate = array(
 		'fields' => array(
@@ -13,7 +13,7 @@ class ProvidersController extends AppController {
 			'Provider.id',
 			'Provider.telefone',
 			'Service.nome'),
-			'limit' => 10
+			'limit' => 100
 	);
 	//  public function beforeFilter(){
   //       parent::beforeFilter();

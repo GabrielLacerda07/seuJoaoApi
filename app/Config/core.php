@@ -216,7 +216,7 @@
 
 header('Access-Control-Allow-Origin: *');
 
-header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
+header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
 
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Authorization");
 
