@@ -12,7 +12,7 @@ class ProvidersController extends AppController {
 			'Provider.email',
 			'Provider.id',
 			'Service.nome'),
-			'limit' => 3
+			'limit' => 100
 	);
 
 	public function index(){
