@@ -32,10 +32,9 @@ class ProvidersController extends AppController {
 	public function add(){
 		if(!empty($this->request->data)){
 			$this->Provider->create();
-			if($this->Provider->save($this->request->data)){
-				$this->Flash->set('Prestador gravado com sucesso!');
-				$this->redirect('/providers');
-			}
+			$this->Provider->save($this->request->data);
+			$this->Flash->set('Prestador gravado com sucesso!');
+			$this->redirect('/providers');
 		}
 		$fields = array('Service.id', 'Service.nome');
 		$servicos= $this->Provider->Service->find('list', compact('fields'));
