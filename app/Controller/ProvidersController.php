@@ -15,11 +15,11 @@ class ProvidersController extends AppController {
 			'Service.nome'),
 			'limit' => 100
 	);
-	//  public function beforeFilter(){
-  //       parent::beforeFilter();
-  //       $this->Security->validatePost = false;
-  //       $this->Security->csrfCheck = false;
-  //   }
+	 public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Security->validatePost = false;
+        $this->Security->csrfCheck = false;
+    }
 	public function index(){
 			$prestadores = $this->paginate();
 			$this->set(array(
@@ -30,19 +30,31 @@ class ProvidersController extends AppController {
 	}
 
 	public function add(){
-		if(!empty($this->request->data)){
+
+		// if(!empty($this->request->data)){
+		// 	$this->Provider->create();
+		// 	$this->Provider->save($this->request->data);
+		// 	$this->Flash->set('Prestador gravado com sucesso!');
+		// 	$this->redirect('/providers');
+		// }
+		// $fields = array('Service.id', 'Service.nome');
+		// $servicos= $this->Provider->Service->find('list', compact('fields'));
+		// // $this->set('servicos', $servicos);
+		// $this->set(array(
+		// 	'servicos' => $servicos,
+		// 	'_serialize' => array('servicos')
+		// ));
+
+		$this->autoRender = false;
+		$this->response->type('application/json');
+			if($this->request->is('post')){
 			$this->Provider->create();
-			$this->Provider->save($this->request->data);
-			$this->Flash->set('Prestador gravado com sucesso!');
-			$this->redirect('/providers');
+			if($this->Provider->save(json_decode(file_get_contents('php://input'), true))){
+				$this->response->body(json_encode(['msg' =>  json_decode(file_get_contents('php://input'))]));
+			}else{
+				$this->response->body(json_encode(['msg' => 'Não salvou!']));
+			}
 		}
-		$fields = array('Service.id', 'Service.nome');
-		$servicos= $this->Provider->Service->find('list', compact('fields'));
-		// $this->set('servicos', $servicos);
-		$this->set(array(
-			'servicos' => $servicos,
-			'_serialize' => array('servicos')
-		));
 	}
 
 	public function edit($id = null){
