@@ -26,7 +26,6 @@ class ProvidersController extends AppController {
 				'prestadores'=> $prestadores,
 				'_serialize' => array('prestadores')
 			));
-
 	}
 
 	public function add(){
@@ -50,9 +49,10 @@ class ProvidersController extends AppController {
 			if($this->request->is('post')){
 			$this->Provider->create();
 			if($this->Provider->save(json_decode(file_get_contents('php://input'), true))){
-				$this->response->body(json_encode(['msg' =>  json_decode(file_get_contents('php://input'))]));
+				// $this->response->body(json_encode(['msg' =>  json_decode(file_get_contents('php://input'))]));
+				$this->response->body($this->response->statusCode(201));
 			}else{
-				$this->response->body(json_encode(['msg' => 'Não salvou!']));
+				$this->response->body($this->response->statusCode(400));
 			}
 		}
 	}
@@ -104,7 +104,6 @@ class ProvidersController extends AppController {
 	}
 	public function  delete($id){
 		$this->Provider->delete($id);
-		$this->redirect('/providers');
 	}
 	public function exportCsv(){
 
